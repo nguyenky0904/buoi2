@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiệu ứng đom đóm</title>
+    <style>
+        body {
+            background: black;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .firefly {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: radial-gradient(circle, yellow, rgba(255,255,0,0));
+            border-radius: 50%;
+            opacity: 0.8;
+            box-shadow: 0 0 10px yellow;
+            animation: twinkle 2s infinite alternate, move 5s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--x), var(--y)); }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createFirefly() {
+            let firefly = document.createElement("div");
+            firefly.classList.add("firefly");
+
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+
+            firefly.style.left = x + "px";
+            firefly.style.top = y + "px";
+
+            let moveX = (Math.random() - 0.5) * 200 + "px";
+            let moveY = (Math.random() - 0.5) * 200 + "px";
+
+            firefly.style.setProperty("--x", moveX);
+            firefly.style.setProperty("--y", moveY);
+            firefly.style.animationDuration = (Math.random() * 5 + 3) + "s";
+
+            document.body.appendChild(firefly);
+
+            setTimeout(() => { firefly.remove(); }, 8000);
+        }
+
+        setInterval(createFirefly, 500);
+    </script>
+    <main>
+        <h1 style="color: azure;text-align: center; padding: 100px;">J97 - Jack</h1>
+    </main>
+</body>
+</html>
